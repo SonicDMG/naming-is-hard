@@ -1,3 +1,22 @@
+# Naming-is-hard Application Awesomeness
+This was created with create-react-app. The normal instructions are down below. However, I've added support for serverless functions using Netlify so there are some changes when running the application.
+
+## 1. Install dependencies
+```shell
+npm install
+```
+
+## 2. Generate .env file with astra-setup
+Execute the following command in your terminal to hook up to Astra and auto generate your .env file. (Use this for now until I get everything setup in our Astra org)
+```shell
+TODO
+```
+
+## 3. Run the app using Netlify
+```shell
+netlify dev
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
