@@ -11,7 +11,7 @@ function GRPC() {
     // using the getShowsAstra serverless function to call out to the
     // Astra/Stargate graphQL endpoint
     // https://stargate.io/docs/stargate/1.0/developers-guide/graphql.html
-    const response = await fetch("/.netlify/functions/grpcClient", {
+    const response = await fetch("/.netlify/functions/getAstraInfoGRPC", {
       method: "POST",
     })
     const responseBody = await response.json()
