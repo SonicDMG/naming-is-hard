@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import ReferenceList from './components/ReferenceList';
+import AstraInfo from './components/AstraInfo';
 import GRPC from './components/GRPC';
 
 function App() {
@@ -21,8 +21,8 @@ function App() {
         </a>
         <h1>GRPC</h1>
         <GRPC />
-        <h1>ReferenceList(Astra DB)</h1>
-        <ReferenceList />
+        <h1>AstraInfo(Astra DB)</h1>
+        <AstraInfo />
       </header>
     </div>
   );

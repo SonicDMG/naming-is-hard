@@ -106,3 +106,9 @@ dist
 # Build and package lock
 build/
 package-lock.json
+
+# Stupid Mac stuff
+.DS_Store
+
+# IDE config
+.vscode

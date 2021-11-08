@@ -52,7 +52,7 @@ function GRPC() {
   // now check to see there is any data returned
   // (If this triggers it essentially means there are no rows returned from the data layer)
   // This will exit the function and "skip" conditions below it
-  if (!gqlResult.length) return <p>No Data</p>;
+  if (!gqlResult.data.local.values.length) return <p>No Data</p>;
    
   // Finally, if all other checks pass get the data
   // from the payload via gqlResult state and inject it into the DOM
@@ -67,10 +67,10 @@ function GRPC() {
     </div>
   ));
   */
-  return gqlResult.map(({ value }) => (
-    <div key={value}>
+  return gqlResult.data.local.values.map(({ data_center }) => (
+    <div key={data_center}>
         <p>
-        {value}
+        {data_center}
         </p>
     </div>
   ));

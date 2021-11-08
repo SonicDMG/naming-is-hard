@@ -11,7 +11,7 @@ function ReferenceList() {
     // using the getShowsAstra serverless function to call out to the
     // Astra/Stargate graphQL endpoint
     // https://stargate.io/docs/stargate/1.0/developers-guide/graphql.html
-    const response = await fetch("/.netlify/functions/getGenresAstra", {
+    const response = await fetch("/.netlify/functions/getAstraInfo", {
       method: "POST",
     })
     const responseBody = await response.json()
@@ -52,16 +52,16 @@ function ReferenceList() {
   // now check to see there is any data returned
   // (If this triggers it essentially means there are no rows returned from the data layer)
   // This will exit the function and "skip" conditions below it
-  if (!gqlResult.data.reference_list.values.length) return <p>No Data</p>;
+  if (!gqlResult.data.local.values.length) return <p>No Data</p>;
    
   // Finally, if all other checks pass get the data
   // from the payload via gqlResult state and inject it into the DOM
   // Notice how the payload example below and the fields "title" and "releaseYear" match exactly
   // {"data":{"reference_list":{"values":[{"value":"Action"},{"value":"Anime"}...
-  return gqlResult.data.reference_list.values.map(({ value }) => (
-    <div key={value}>
+  return gqlResult.data.local.values.map(({ data_center }) => (
+    <div key={data_center}>
       <p>
-        {value}
+        DataCenter: {data_center}
       </p>
     </div>
   ));

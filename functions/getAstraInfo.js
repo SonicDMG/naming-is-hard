@@ -3,12 +3,12 @@ const fetch = require('node-fetch')
 
 exports.handler = async function (event) {
   const query = `
-    query getAllGenres {
-        reference_list (value: { label: "genre"}) {
-            values {
-                value
-            }
+    query getDataCenter {
+      local(value:{key: "local"}){
+        values{
+          data_center
         }
+      }
     }
   ` 
   const url = process.env.ASTRA_GRAPHQL_ENDPOINT

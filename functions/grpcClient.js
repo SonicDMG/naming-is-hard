@@ -3,7 +3,8 @@
 const { credentials } = require("@grpc/grpc-js");
 const { StargateClient, StargateBearerToken, Query, promisifyStargateClient } = require("@stargate-oss/stargate-grpc-node-client");
 
-const grpcEndpoint = '3f12ae31-f2da-4333-9efe-7944183c6fcc-us-east-1.apps.astra.datastax.com';
+//const grpcEndpoint = '3f12ae31-f2da-4333-9efe-7944183c6fcc-us-east-1.apps.astra.datastax.com:443';
+const grpcEndpoint = '4a693d8d-b3d4-4d94-ade1-f5ac66208845-us-east1.apps.astra-dev.datastax.com';
 
 exports.handler = async function (event, context) {
     const bearerToken = new StargateBearerToken(process.env.ASTRA_DB_APPLICATION_TOKEN);
@@ -17,37 +18,24 @@ exports.handler = async function (event, context) {
     const promisifiedClient = promisifyStargateClient(stargateClient);
     try {
         const query = new Query();
-        query.setCql('select title from todolist.todolist');
-        //query.setCql('select cluster_name from system.local');
+        //query.setCql('select title from todolist.todolist');
+        query.setCql('select data_center from system.local');
 
         const queryResult = await promisifiedClient.executeQuery(
             query
         );
-        console.log("queryResult", queryResult.getResultSet);
 
         const resultSet = queryResult.getResultSet();
         if (resultSet) {
-            //const firstRow = resultSet.getRowsList()[0];
-
-            console.log("resultSet", resultSet);
-            const rowList = resultSet.getRowsList();
-            console.log("rowList", rowList.length);
-            const firstRow = rowList[0];
+            const firstRow = resultSet.getRowsList()[0];
             // We call getString() here because we know the type being returned.
             // See below for details on working with types.
-            const cluster_name = firstRow.getValuesList()[0].getString();
-            console.log(`cluster_name: ${cluster_name}`);
+            const data_center = firstRow.getValuesList()[0].getString();
+            console.log(`data_center: ${data_center}`);
 
-            console.log("firstRow", firstRow);
-            const firstRowValues = firstRow.getValuesList();
-            console.log("firstRowValues", firstRowValues);
-            const firstValue = firstRowValues[0].getString();
-            console.log("firstValue", firstValue);
-
-            //const responseBody = {"data":{"grpc":{"values":[{"value":"GRPC YOoo"}]}}};
             return {
                 statusCode: 200,
-                body: JSON.stringify(resultSet.getRowsList()[0])
+                body: JSON.stringify({"data":{"local":{"values":[{"data_center": data_center }]}}})
             }
         }
     } catch (e) {
