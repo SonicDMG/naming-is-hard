@@ -1,5 +1,6 @@
 const { Query } = require("@stargate-oss/stargate-grpc-node-client");
 const { getGrpcClient } = require("./utils/grpcClient");
+const chalk = require('chalk')
 
 exports.handler = async function (event, context) {
     const grpcClient = await getGrpcClient();
@@ -19,7 +20,7 @@ exports.handler = async function (event, context) {
             // We call getString() here because we know the type being returned.
             // See below for details on working with types.
             const data_center = firstRow.getValuesList()[0].getString();
-            console.log(`data_center: ${data_center}`);
+            console.log(chalk.cyan('Data Center IS:', chalk.red(data_center)));
 
             return {
                 statusCode: 200,

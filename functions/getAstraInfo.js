@@ -1,5 +1,5 @@
 const fetch = require('node-fetch')
-//import { fetch } from 'node-fetch'
+const chalk = require('chalk')
 
 exports.handler = async function (event) {
   const query = `
@@ -12,6 +12,7 @@ exports.handler = async function (event) {
     }
   ` 
   const url = process.env.ASTRA_GRAPHQL_ENDPOINT
+  console.log(chalk.cyan('GraphQL Endpoint IS:', chalk.red(url)));
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -23,6 +24,8 @@ exports.handler = async function (event) {
 
   try {
     const responseBody = await response.json()
+    const dataCenter = responseBody.data.local.values[0].data_center
+    console.log(chalk.cyan('Data Center IS:', chalk.red(dataCenter)));
     return {
       statusCode: 200,
       body: JSON.stringify(responseBody)
