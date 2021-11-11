@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react" 
    
 function GRPC() {
-  const [gqlResult, setGqlResult] = useState(null) // State to hold graphQL result data
+  const [grpcResult, setGrpcResult] = useState(null) // State to hold graphQL result data
   const [isLoading, setIsLoading] = useState(true) // State to determine when the async graphQL call is complete
   const [isError, setIsError] = useState(true) // State to determine if the graphQL payload contains an error object
 
@@ -15,7 +15,7 @@ function GRPC() {
       method: "POST",
     })
     const responseBody = await response.json()
-    setGqlResult(responseBody) // on response set our graphQL result state
+    setGrpcResult(responseBody) // on response set our graphQL result state
   }
 
   useEffect(() => {
@@ -26,19 +26,19 @@ function GRPC() {
   // are finishled loading the payload or if there are
   // any errors
   useEffect(() => {
-    if (gqlResult !== null) {
+    if (grpcResult !== null) {
       setIsLoading(false)
 
       // Check the payload for any errors https://graphql.org/learn/validation/
       // and if any exist set error state and dump the message to the console
-      if ('code' in gqlResult) {
+      if ('code' in grpcResult) {
         setIsError(true)
-        console.log("grpc ERROR IS: ", gqlResult)
+        console.log("grpc ERROR IS: ", grpcResult)
       } else {
         setIsError(false)
       }
     }
-  }, [gqlResult]) // <- watch me for state changes
+  }, [grpcResult]) // <- watch me for state changes
 
   // If no result yet display loading text and return
   // This will exit the function and "skip" conditions below it
@@ -52,7 +52,7 @@ function GRPC() {
   // now check to see there is any data returned
   // (If this triggers it essentially means there are no rows returned from the data layer)
   // This will exit the function and "skip" conditions below it
-  if (!gqlResult.data.local.values.length) return <p>No Data</p>;
+  if (!grpcResult.data.local.values.length) return <p>No Data</p>;
    
   // Finally, if all other checks pass get the data
   // from the payload via gqlResult state and inject it into the DOM
@@ -67,13 +67,13 @@ function GRPC() {
     </div>
   ));
   */
-  return gqlResult.data.local.values.map(({ data_center }) => (
-    <div key={data_center}>
-        <p>
-        {data_center}
-        </p>
+  return (
+    <div>
+      <p>
+        Data Center: {grpcResult.data.local.values[0].data_center} @ {grpcResult.elapsed_time}
+      </p>
     </div>
-  ));
+  );
 
 }
 

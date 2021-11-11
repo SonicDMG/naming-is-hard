@@ -2,6 +2,8 @@ const fetch = require('node-fetch')
 const chalk = require('chalk')
 
 exports.handler = async function (event) {
+  const startTime = new Date();
+
   const query = `
     query getDataCenter {
       local(value:{key: "local"}){
@@ -24,6 +26,12 @@ exports.handler = async function (event) {
 
   try {
     const responseBody = await response.json()
+    // Compute time difference in milliseconds
+    const endTime = new Date();
+    const timeDiff = (endTime.getTime() - startTime.getTime()) + " ms";
+
+    responseBody.elapsed_time = timeDiff;
+
     const dataCenter = responseBody.data.local.values[0].data_center
     console.log(chalk.cyan('Data Center IS:', chalk.red(dataCenter)));
     return {

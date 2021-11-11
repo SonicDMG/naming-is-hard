@@ -58,13 +58,13 @@ function ReferenceList() {
   // from the payload via gqlResult state and inject it into the DOM
   // Notice how the payload example below and the fields "title" and "releaseYear" match exactly
   // {"data":{"reference_list":{"values":[{"value":"Action"},{"value":"Anime"}...
-  return gqlResult.data.local.values.map(({ data_center }) => (
-    <div key={data_center}>
+  return (
+    <div>
       <p>
-        DataCenter: {data_center}
+        Data Center: {gqlResult.data.local.values[0].data_center} @ {gqlResult.elapsed_time}
       </p>
     </div>
-  ));
+  );
 
 }
 
