@@ -105,7 +105,26 @@ dist
 
 # Build and package lock
 build/
-package-lock.json
+# need the lock file to do builds https://stackoverflow.com/questions/44206782/do-i-commit-the-package-lock-json-file-created-by-npm-5#:~:text=package-lock.jsonis%20automatically%20generated%20for%20any%20operations%20where%20npm,generate%20identical%20trees%2C%20regardless%20of%20intermediate%20dependency%20updates.
+# see answer "Yes, package-lock.json is intended to be checked into source control. If you're using npm 5+, 
+# you may see this notice on the command line: created a lockfile as package-lock.json. You should commit this file. 
+# According to npm help package-lock.json:
+# package-lock.json is automatically generated for any operations where npm modifies either the node_modules tree, or package.json. It describes the exact tree that was generated, such that subsequent installs are able to generate identical trees, regardless of intermediate dependency updates.
+#
+# This file is intended to be committed into source repositories, and serves various purposes:
+#
+# Describe a single representation of a dependency tree such that teammates, deployments, and continuous integration are guaranteed to install exactly the same dependencies.
+#
+# Provide a facility for users to "time-travel" to previous states of node_modules without having to commit the directory itself.
+#
+# To facilitate greater visibility of tree changes through readable source control diffs.
+#
+# And optimize the installation process by allowing npm to skip repeated metadata resolutions for previously-installed packages.
+#
+# One key detail about package-lock.json is that it cannot be published, and it will be ignored if found in any place other than the toplevel package. It shares a format with npm-shrinkwrap.json, which is essentially the same file, but allows publication. This is not recommended unless deploying a CLI tool or otherwise using the publication process for producing production packages.
+#
+# If both package-lock.json and npm-shrinkwrap.json are present in the root of a package, package-lock.json will be completely ignored.
+#package-lock.json
 
 # Stupid Mac stuff
 .DS_Store
