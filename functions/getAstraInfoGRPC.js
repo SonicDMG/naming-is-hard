@@ -1,5 +1,6 @@
 const { Query } = require("@stargate-oss/stargate-grpc-node-client");
 const { getGrpcClient } = require("./utils/grpcClient");
+//const { insertStatGRPC } = require("./insertStatGRPC");
 const chalk = require('chalk')
 
 exports.handler = async function (event, context) {
