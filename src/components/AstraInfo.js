@@ -5,13 +5,15 @@ function ReferenceList() {
   const [isLoading, setIsLoading] = useState(true) // State to determine when the async graphQL call is complete
   const [isError, setIsError] = useState(true) // State to determine if the graphQL payload contains an error object
 
+  const functionName = "getAstraInfo"; // The name of the function to call in the serverless backend
+
   const fetchData = async () => {
     
     // Asynchronously fetch any "reference_list" graphQL data from the Astra DB GraphQL API
     // using the getShowsAstra serverless function to call out to the
     // Astra/Stargate graphQL endpoint
     // https://stargate.io/docs/stargate/1.0/developers-guide/graphql.html
-    const response = await fetch("/.netlify/functions/getAstraInfo", {
+    const response = await fetch("/.netlify/functions/" + functionName, {
       method: "POST",
     })
     const responseBody = await response.json()
@@ -36,6 +38,8 @@ function ReferenceList() {
         console.log("reference_list ERROR IS: ", gqlResult.errors)
       } else {
         setIsError(false)
+
+        console.log("reference_list SUCCESS IS: ", gqlResult.data.local.values[0].data_center);
       }
     }
   }, [gqlResult]) // <- watch me for state changes
