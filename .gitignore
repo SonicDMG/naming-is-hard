@@ -131,3 +131,6 @@ build/
 
 # IDE config
 .vscode
+
+# Local Netlify folder
+.netlify
