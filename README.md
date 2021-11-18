@@ -17,6 +17,20 @@ TODO
 netlify dev
 ```
 
+## 3a. run the app in K8s
+
+1. Have a k8s cluster, failing that install something like [k3d](https://k3d.io/) `curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash`
+2. Install [Helm](helm.sh)
+3. run `./deploy-in-k3d.sh`
+4. Open a local port `kubectl port-forward $(kubectl get pods -l app.kubernetes.io/name=naming-is-hard -o custom-columns=NAME:metadata.name --no-headers) 3000:3000`
+5. open your browser to http://localhost:3000
+
+### Update your app in K8s
+
+1. run `./update-app-in-k3d.sh`
+2. Open a local port `kubectl port-forward $(kubectl get pods -l app.kubernetes.io/name=naming-is-hard -o custom-columns=NAME:metadata.name --no-headers) 3000:3000`
+3. reload your browser
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
