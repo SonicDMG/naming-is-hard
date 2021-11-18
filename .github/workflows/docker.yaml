@@ -1,6 +1,8 @@
 name: GH Packages Push
 
 on:
+  push:
+    branches: [ "*" ]
   pull_request:
    branches: [ "*" ]
    tags:
