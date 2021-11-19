@@ -32,7 +32,7 @@ exports.handler = async function (event, context) {
         if (resultSet) {
             // Compute time difference in milliseconds
             const endTime = new Date();
-            const timeDiff = (endTime.getTime() - startTime.getTime()) + " ms";
+            const timeDiff = (endTime.getTime() - startTime.getTime());
 
             const firstRow = resultSet.getRowsList()[0];
             // We call getString() here because we know the type being returned.

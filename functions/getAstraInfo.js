@@ -40,7 +40,7 @@ exports.handler = async function (event) {
     const responseBody = await response.json()
     // Compute time difference in milliseconds
     const endTime = new Date();
-    const timeDiff = (endTime.getTime() - startTime.getTime()) + " ms";
+    const timeDiff = (endTime.getTime() - startTime.getTime());
 
     responseBody.elapsed_time = timeDiff;
 

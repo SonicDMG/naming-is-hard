@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import AstraInfo from './components/AstraInfo';
 import GRPC from './components/GRPC';
+import TestSentenceLoopGRPC from './components/TestSentenceLoopGRPC';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         >
           Learn React
         </a>
+        <h1>TestSentenceLoopGRPC</h1>
+        <TestSentenceLoopGRPC />
         <h1>GRPC</h1>
         <GRPC />
         <h1>AstraInfo(Astra DB)</h1>
