@@ -4,8 +4,20 @@ const { getGrpcClient } = require("./utils/grpcClient");
 const chalk = require('chalk')
 
 exports.handler = async function (event, context) {
+    let region = '';
+    if (event.queryStringParameters.region) {
+      region = event.queryStringParameters.region;
+  
+    } else if (event.body) {
+      region = JSON.parse(event.body).region
+  
+    } else {
+      region = 'Region NOT SET';
+    }
+    console.log(chalk.cyan('Client passed region IS:', chalk.red(region)));
+
     const startTime = new Date();
-    const grpcClient = await getGrpcClient();
+    const grpcClient = await getGrpcClient(region);
 
     try {
         const query = new Query();

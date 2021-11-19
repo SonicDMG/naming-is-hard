@@ -2,6 +2,18 @@ const fetch = require('node-fetch')
 const chalk = require('chalk')
 
 exports.handler = async function (event) {
+  let region = '';
+  if (event.queryStringParameters.region) {
+    region = event.queryStringParameters.region;
+
+  } else if (event.body) {
+    region = JSON.parse(event.body).region
+
+  } else {
+    region = 'Region NOT SET';
+  }
+  console.log(chalk.cyan('Client passed region IS:', chalk.red(region)));
+
   const startTime = new Date();
 
   const query = `
@@ -13,7 +25,7 @@ exports.handler = async function (event) {
       }
     }
   ` 
-  const url = process.env.ASTRA_GRAPHQL_ENDPOINT
+  const url = process.env['ASTRA_GRAPHQL_ENDPOINT_' + region];
   console.log(chalk.cyan('GraphQL Endpoint IS:', chalk.red(url)));
   const response = await fetch(url, {
     method: 'POST',

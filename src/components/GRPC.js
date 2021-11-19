@@ -15,6 +15,7 @@ function GRPC() {
     // https://stargate.io/docs/stargate/1.0/developers-guide/graphql.html
     const response = await fetch("/.netlify/functions/" + functionName, {
       method: "POST",
+      body: JSON.stringify({ region: "US" }),
     })
     const responseBody = await response.json()
     setGrpcResult(responseBody) // on response set our graphQL result state
