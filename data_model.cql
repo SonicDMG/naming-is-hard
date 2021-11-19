@@ -12,3 +12,10 @@ USING 'StorageAttachedIndex';
 
 CREATE CUSTOM INDEX data_center_sai_idx ON naming_is_hard.stats_by_function (data_center) 
 USING 'StorageAttachedIndex';
+
+CREATE TABLE IF NOT EXISTS naming_is_hard.sentence_by_id (
+    id UUID,
+    num_words INT,
+    sentence TEXT,
+    PRIMARY KEY (id)
+);
