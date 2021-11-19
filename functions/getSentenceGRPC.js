@@ -59,7 +59,7 @@ exports.handler = async function (event, context) {
             const id = toUUIDString(firstRow.getValuesList()[0]); // TODO: this is wrong, but getUuid on its own is not working
             const numWords = firstRow.getValuesList()[1].getInt();
             const sentence = firstRow.getValuesList()[2].getString();
-            console.log(chalk.cyan('Data Center IS:', chalk.red(sentence)));
+            console.log(chalk.cyan('Sentence IS:', chalk.red(sentence)));
 
             const JSONResponse = {"data":{"local":{"values":[
                 {"id": id, "numWords": numWords, "sentence": sentence}

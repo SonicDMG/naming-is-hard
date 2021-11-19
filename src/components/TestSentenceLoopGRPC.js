@@ -17,6 +17,7 @@ function GRPC() {
   const functionName = "getSentenceGRPC"; // The name of the function to call in the serverless backend
 
   const fetchData = async () => {
+    setCount((count) => count + 1);
     
     // Asynchronously fetch any "shows_by_name" graphQL data from the Astra DB GraphQL API
     // using the getShowsAstra serverless function to call out to the
@@ -24,7 +25,7 @@ function GRPC() {
     // https://stargate.io/docs/stargate/1.0/developers-guide/graphql.html
     const response = await fetch("/.netlify/functions/" + functionName, {
       method: "POST",
-      body: JSON.stringify({ region: "US" }),
+      body: JSON.stringify({ region: "APAC" }),
     })
     const responseBody = await response.json()
     setGrpcResult(responseBody) // on response set our graphQL result state
@@ -32,20 +33,32 @@ function GRPC() {
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, [sentenceAppend])
 
   /*useEffect(() => {
-    setTimeout(() => {
+    //setTimeout(() => {
+      //setCount((count) => count + 1);
+      fetchData();
+    //}, 1000);
+  }, [sentenceAppend]);*/
+
+  /*useEffect(() => {
+    let timer = setTimeout(() => {
       setCount((count) => count + 1);
     }, 1000);
-  }, [count]);*/
+
+    return () => clearTimeout(timer)
+  }, [sentence]);*/
 
   useEffect(() => {
+    let appendSentence = "";
+
     for ( let i = 0; i < numWordsAbsolute; i++) {
-      setCount((count) => count + 1);
-      setSentenceAppend(sentenceAppend + " " + sentence[i]);
-      console.log("loop IS :", sentence[i]);
-      //fetchData();
+      setTimeout(() => {
+        appendSentence  = appendSentence + " " + sentence[i];
+        console.log("loop IS :", appendSentence);
+        setSentenceAppend(appendSentence);
+      }, 1000);
     }
   }, [numWordsAbsolute]);
 
@@ -54,7 +67,7 @@ function GRPC() {
   // any errors
   useEffect(() => {
     if (grpcResult !== null) {
-      setCount((count) => count + 1)
+      //setCount((count) => count + 1)
       setIsLoading(false)
 
       // Check the payload for any errors https://graphql.org/learn/validation/
@@ -76,7 +89,7 @@ function GRPC() {
 
       }
     }
-  }, [grpcResult]) // <- watch me for state changes
+  }, [grpcResult, numWordsAbsolute, count]) // <- watch me for state changes
 
   // If no result yet display loading text and return
   // This will exit the function and "skip" conditions below it
