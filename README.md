@@ -20,7 +20,7 @@ netlify dev
 ## 3a. run the app in K8s
 
 1. Have a k8s cluster, failing that install something like [k3d](https://k3d.io/) `curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash`
-2. Install [Helm](https://helm.sh)
+2. Install [Helm](https://helm.sh). If you don't have and want a quick install in bash just run `curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash`
 3. run `./deploy-in-k3d.sh`
 4. Open a local port `kubectl port-forward $(kubectl get pods -l app.kubernetes.io/name=naming-is-hard -o custom-columns=NAME:metadata.name --no-headers) 3000:3000`
 5. open your browser to http://localhost:3000
