@@ -29,9 +29,9 @@ const SentenceLoop = () => {
     for (let i = 0; i < sentence.split(" ").length; i++) {
       const result = await getSentence();
       time = time + result.elapsed_time;
+      setTotalTime(time);
       setCount(i + 1);
     }
-    setTotalTime(time);
   }, []);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const SentenceLoop = () => {
           </span>
         ))}
       </div>
-      <div>total time: {totalTime > 0 && totalTime}</div>
+      <div>total time: {totalTime}</div>
       <div>count: {count}</div>
     </>
   );
