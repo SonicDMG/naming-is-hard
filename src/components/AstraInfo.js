@@ -47,17 +47,17 @@ function ReferenceList() {
     
   // If no result yet display loading text and return
   // This will exit the function and "skip" conditions below it
-  if (isLoading) return <p>Is Loading...</p>;
+  if (isLoading) return <span>Is Loading...</span>;
 
   // If there is an error state display error text and return
   // This will exit the function and "skip" conditions below it
-  if (isError) return <p>Error :(</p>;
+  if (isError) return <span>Error :(</span>;
 
   // If payload loading is complete and there are no errors
   // now check to see there is any data returned
   // (If this triggers it essentially means there are no rows returned from the data layer)
   // This will exit the function and "skip" conditions below it
-  if (!gqlResult.data.local.values.length) return <p>No Data</p>;
+  if (!gqlResult.data.local.values.length) return <span>No Data</span>;
    
   // Finally, if all other checks pass get the data
   // from the payload via gqlResult state and inject it into the DOM
@@ -65,9 +65,7 @@ function ReferenceList() {
   // {"data":{"reference_list":{"values":[{"value":"Action"},{"value":"Anime"}...
   return (
     <div>
-      <p>
-        Data Center: {gqlResult.data.local.values[0].data_center} @ {gqlResult.elapsed_time}
-      </p>
+      {gqlResult.data.local.values[0].data_center} @ {gqlResult.elapsed_time}ms (graphQL)
     </div>
   );
 
