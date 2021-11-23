@@ -28,6 +28,7 @@ const SentenceLoop = () => {
     setIsLoading(true);
     setIsRunning(true);
     setPauseTimer(false);
+    setIsAlive(true);
     const grpcResult = await getSentence(region);
 
     if ("code" in grpcResult) {
@@ -59,7 +60,7 @@ const SentenceLoop = () => {
     fetchData(region);
   }, [fetchData, region, toggle]);
 
-  const timerEndCallback = useCallback(() => {
+  const timerEndCallback = useCallback((isRunning) => {
     setPauseTimer(true);
     if (isRunning) {
       setIsAlive(false);
@@ -97,28 +98,34 @@ const SentenceLoop = () => {
       {isLoading && <p>Is Loading...</p>}
       {!isLoading && (
         <>
-          <ReactCountdownClock
-            seconds={1}
-            color="#fff"
-            alpha={0.9}
-            size={150}
-            weight={20}
-            onComplete={timerEndCallback}
-            paused={pauseTimer}
-            pausedText={isAlive ? "Alive" : "Dead"}
-          />
-          <div className="sentence">
-            {words.map((word, index) => (
-              <span
-                style={{ margin: "3px" }}
-                key={index}
-                className={index >= count ? "hide" : ""}
-              >
-                {word}
-              </span>
-            ))}
-          </div>
-          <div>total time: {totalTime}ms</div>
+          {isAlive ? (
+            <>
+              <ReactCountdownClock
+                seconds={1}
+                color="#fff"
+                alpha={0.9}
+                size={150}
+                weight={20}
+                onComplete={() => timerEndCallback(isRunning)}
+                paused={pauseTimer}
+                pausedText={isAlive ? "Alive" : "Dead"}
+              />
+              <div className="sentence">
+                {words.map((word, index) => (
+                  <span
+                    style={{ margin: "3px" }}
+                    key={index}
+                    className={index >= count ? "hide" : ""}
+                  >
+                    {word}
+                  </span>
+                ))}
+              </div>
+              <div>total time: {totalTime}ms</div>
+            </>
+          ) : (
+            <h1>YOU DIED!</h1>
+          )}
         </>
       )}
     </div>
