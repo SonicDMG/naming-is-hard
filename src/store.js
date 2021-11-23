@@ -15,7 +15,7 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     addData: (state, action) => {
-      //console.log("state: ", action.payload);
+      // console.log("state: ", action.payload.labels);
       state.push(action.payload);
     },
     reset: () => {

@@ -41,6 +41,11 @@ button {
   max-width: 100px;
 }
 
+.react-countdown-clock {
+  display: flex;
+  margin-top: 20px;
+}
+
 /* .App-header,
 .App-content,
 .App-footer {
