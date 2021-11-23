@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import {
   Chart as ChartJS,
@@ -37,8 +37,8 @@ export const options = {
       text: "Chart.js Line Chart - Multi Axis",
     },
     filler: {
-      drawTime: 'beforeDatasetDraw'
-    }
+      drawTime: "beforeDatasetDraw",
+    },
   },
   scales: {
     y: {
@@ -57,10 +57,10 @@ export const chartData = {
     {
       label: "Elapsed time in millis",
       data: [],
-      yAxisID: 'y',
+      yAxisID: "y",
       fill: true,
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: "rgb(255, 99, 132)",
+      borderColor: "rgb(255, 99, 132)",
       stepped: true,
     },
   ],
@@ -79,7 +79,11 @@ function Footer({ children }) {
     dataset.shift();
     //console.log("dataset IS: ", dataset);
 
-    setChartState({ ...chartState, labels, datasets: [{ ...chartState.datasets[0], data: dataset }] });
+    setChartState({
+      ...chartState,
+      labels,
+      datasets: [{ ...chartState.datasets[0], data: dataset }],
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
@@ -89,7 +93,7 @@ function Footer({ children }) {
 
   return (
     <div className="App-footer">
-      <Line options={options} data={chartState}/>
+      <Line options={options} data={chartState} />
       {children}
     </div>
   );

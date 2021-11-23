@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { getSentence } from "../api/grpc";
 import { useDispatch } from "react-redux";
 import { addData, reset } from "../store";
+import ReactCountdownClock from "react-countdown-clock";
 
 const SentenceLoop = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,8 @@ const SentenceLoop = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [region, setRegion] = useState("us");
   const [toggle, setToggle] = useState(false);
+  const [pauseTimer, setPauseTimer] = useState(false);
+  const [isAlive, setIsAlive] = useState(true);
 
   const fetchData = useCallback(async () => {
     // Reset chart data state on each fetch
@@ -24,6 +27,7 @@ const SentenceLoop = () => {
     setWords([]);
     setIsLoading(true);
     setIsRunning(true);
+    setPauseTimer(false);
     const grpcResult = await getSentence(region);
 
     if ("code" in grpcResult) {
@@ -33,12 +37,11 @@ const SentenceLoop = () => {
     }
 
     const sentence = grpcResult.data.local.values[0].sentence;
-    console.log(sentence);
 
     setWords(sentence.split(" "));
 
     setIsLoading(false);
-    console.time("time");
+
     let time = grpcResult.elapsed_time;
     for (let i = 0; i < sentence.split(" ").length; i++) {
       const result = await getSentence(region);
@@ -47,13 +50,20 @@ const SentenceLoop = () => {
       setCount(i + 1);
       dispatch(addData({ labels: i + 1, dataset: result.elapsed_time })); // Add data to chart in Footer component
     }
-    console.timeEnd("time");
     setIsRunning(false);
-  }, [region, dispatch]);
+    setPauseTimer(true);
+  }, []);
 
   useEffect(() => {
     fetchData();
   }, [fetchData, region, toggle]);
+
+  const timerEndCallback = useCallback(() => {
+    setPauseTimer(true);
+    if (isRunning) {
+      setIsAlive(false);
+    }
+  }, []);
 
   if (isError) return <p>Error :(</p>;
 
@@ -85,6 +95,16 @@ const SentenceLoop = () => {
       {isLoading && <p>Is Loading...</p>}
       {!isLoading && (
         <>
+          <ReactCountdownClock
+            seconds={1}
+            color="#fff"
+            alpha={0.9}
+            size={150}
+            weight={20}
+            onComplete={timerEndCallback}
+            paused={pauseTimer}
+            pausedText={isAlive ? "Alive" : "Dead"}
+          />
           <div className="sentence">
             {words.map((word, index) => (
               <span
