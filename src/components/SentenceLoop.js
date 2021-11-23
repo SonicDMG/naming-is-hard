@@ -18,7 +18,7 @@ const SentenceLoop = () => {
   const [pauseTimer, setPauseTimer] = useState(false);
   const [isAlive, setIsAlive] = useState(true);
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (region) => {
     // Reset chart data state on each fetch
     dispatch(reset());
 
@@ -56,7 +56,7 @@ const SentenceLoop = () => {
   }, []);
 
   useEffect(() => {
-    fetchData();
+    fetchData(region);
   }, [fetchData, region, toggle]);
 
   const timerEndCallback = useCallback(() => {
