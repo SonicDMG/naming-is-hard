@@ -105,6 +105,7 @@ dist
 
 # Build and package lock
 build/
+package-lock.json
 # need the lock file to do builds https://stackoverflow.com/questions/44206782/do-i-commit-the-package-lock-json-file-created-by-npm-5#:~:text=package-lock.jsonis%20automatically%20generated%20for%20any%20operations%20where%20npm,generate%20identical%20trees%2C%20regardless%20of%20intermediate%20dependency%20updates.
 # see answer "Yes, package-lock.json is intended to be checked into source control. If you're using npm 5+, 
 # you may see this notice on the command line: created a lockfile as package-lock.json. You should commit this file. 

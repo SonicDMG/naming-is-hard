@@ -1,3 +1,4 @@
+import React from 'react';
 import "./App.css";
 import Header from "./components/Header";
 import SentenceLoop from "./components/SentenceLoop";
@@ -9,13 +10,13 @@ function App() {
   return (
     <>
       <div className="content">
-        <Header title="Near Us" />
+        <Header title="Near Us"/>
 
         <div className="App-content">
-          <SentenceLoop />
+          <SentenceLoop/>
         </div>
 
-        <Footer title="Dashboard" />
+        <Footer title="Dashboard"/>
       </div>
       <Canvas>
         <OrbitControls autoRotate autoRotateSpeed={0.2} />

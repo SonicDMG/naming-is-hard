@@ -1,7 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { getSentence } from "../api/grpc";
+import { useDispatch } from "react-redux";
+import { addData, reset } from "../store";
 
 const SentenceLoop = () => {
+  const dispatch = useDispatch();
+
   const [words, setWords] = useState([]);
   const [count, setCount] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
@@ -12,6 +16,9 @@ const SentenceLoop = () => {
   const [toggle, setToggle] = useState(false);
 
   const fetchData = useCallback(async () => {
+    // Reset chart data state on each fetch
+    dispatch(reset())
+
     setCount(0);
     setTotalTime(0);
     setWords([]);
@@ -38,10 +45,11 @@ const SentenceLoop = () => {
       time = time + result.elapsed_time;
       setTotalTime(time);
       setCount(i + 1);
+      dispatch(addData({ labels: i + 1, dataset: result.elapsed_time })); // Add data to chart in Footer component
     }
     console.timeEnd("time");
     setIsRunning(false);
-  }, [region]);
+  }, [region, dispatch]);
 
   useEffect(() => {
     fetchData();
@@ -59,6 +67,7 @@ const SentenceLoop = () => {
         value={region}
       >
         <option value="us">US</option>
+        <option value="emea">EMEA</option>
         <option value="apac">APAC</option>
       </select>
 

@@ -43,7 +43,7 @@ body,
   text-align: center;
   flex-direction: column;
   align-items: center;
-  height: 70vh;
+  height: 30vh;
   padding: 20px;
 }
 
@@ -83,9 +83,14 @@ body,
 
 .App-footer {
   background-color: rgba(40, 44, 52, 80);
-  height: 20vh;
   display: flex;
   font-size: calc(20px + 2vmin);
   align-items: flex-start;
   padding: 20px;
+  min-height: 20vh;
+  color: white;
+  margin-top: auto;
+  margin-bottom: 10px;
+  margin-right: 1px;
+  margin-left: 1px;
 }
