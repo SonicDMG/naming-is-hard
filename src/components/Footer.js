@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSelector } from "react-redux";
 import {
   Chart as ChartJS,
@@ -70,7 +70,7 @@ function Footer({ children }) {
   const data = useSelector((state) => state.data);
   const [chartState, setChartState] = useState(chartData);
 
-  useEffect(() => {
+  const updateData = useCallback(async () => {
     const labels = data.map((item) => item.labels);
     labels.shift();
     //console.log("Labels IS: ", labels);
@@ -80,7 +80,12 @@ function Footer({ children }) {
     //console.log("dataset IS: ", dataset);
 
     setChartState({ ...chartState, labels, datasets: [{ ...chartState.datasets[0], data: dataset }] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  useEffect(() => {
+    updateData();
+  }, [updateData, data]);
 
   return (
     <div className="App-footer">
