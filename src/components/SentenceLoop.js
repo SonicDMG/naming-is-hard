@@ -52,6 +52,7 @@ const SentenceLoop = () => {
     }
     setIsRunning(false);
     setPauseTimer(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const SentenceLoop = () => {
     if (isRunning) {
       setIsAlive(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isError) return <p>Error :(</p>;
