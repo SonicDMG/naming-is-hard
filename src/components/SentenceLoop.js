@@ -7,10 +7,17 @@ const SentenceLoop = () => {
   const [totalTime, setTotalTime] = useState(0);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
+  const [region, setRegion] = useState("us");
+  const [toggle, setToggle] = useState(false);
 
   const fetchData = useCallback(async () => {
+    setCount(0);
+    setTotalTime(0);
+    setWords([]);
     setIsLoading(true);
-    const grpcResult = await getSentence();
+    setIsRunning(true);
+    const grpcResult = await getSentence(region);
 
     if ("code" in grpcResult) {
       setIsError(true);
@@ -24,38 +31,62 @@ const SentenceLoop = () => {
     setWords(sentence.split(" "));
 
     setIsLoading(false);
-
-    let time = 0;
+    console.time("time");
+    let time = grpcResult.elapsed_time;
     for (let i = 0; i < sentence.split(" ").length; i++) {
-      const result = await getSentence();
+      const result = await getSentence(region);
       time = time + result.elapsed_time;
       setTotalTime(time);
       setCount(i + 1);
     }
-  }, []);
+    console.timeEnd("time");
+    setIsRunning(false);
+  }, [region]);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, [fetchData, region, toggle]);
 
-  if (isLoading) return <p>Is Loading...</p>;
   if (isError) return <p>Error :(</p>;
 
   return (
     <>
-      <div className="sentence">
-        {words.map((word, index) => (
-          <span
-            style={{ margin: "3px" }}
-            key={index}
-            className={index > count ? "hide" : ""}
-          >
-            {word}
-          </span>
-        ))}
-      </div>
-      <div>total time: {totalTime}</div>
-      <div>count: {count}</div>
+      <label htmlFor="region-select">Choose a region:</label>
+      <select
+        disabled={isRunning}
+        id="region-select"
+        onChange={(e) => setRegion(e.target.value)}
+        value={region}
+      >
+        <option value="us">US</option>
+        <option value="apac">APAC</option>
+      </select>
+
+      <button
+        disabled={isRunning}
+        style={{ marginTop: "10px" }}
+        onClick={() => setToggle(!toggle)}
+      >
+        Try again
+      </button>
+
+      {isLoading && <p>Is Loading...</p>}
+      {!isLoading && (
+        <>
+          <div className="sentence">
+            {words.map((word, index) => (
+              <span
+                style={{ margin: "3px" }}
+                key={index}
+                className={index >= count ? "hide" : ""}
+              >
+                {word}
+              </span>
+            ))}
+          </div>
+          <div>total time: {totalTime}</div>
+        </>
+      )}
     </>
   );
 };

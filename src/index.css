@@ -12,13 +12,3 @@ code {
     monospace;
 }
 
-.hide {
-  visibility: hidden;
-}
-
-.sentence {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin: 10px;
-}
