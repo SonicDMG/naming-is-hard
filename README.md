@@ -1,5 +1,17 @@
-# Naming-is-hard Application Awesomeness
-This was created with create-react-app. The normal instructions are down below. However, I've added support for serverless functions using Netlify so there are some changes when running the application.
+# Naming-is-hard "Near Us"
+Our “Near Us” app is based on “Among Us,” a game of teamwork and betrayal — in space! But instead of space, this app showcases the value of multi-region (on Earth) using Astra DB. 
+
+The mission: get your data close to your users, or DIE.
+
+For this app, we used an Astra organization to share across our team, along with three regions across the world: one in the US, one in EMEA, and one in APAC. The goal of the game is to complete the task of building a sentence before you get murdered. However, if you’re too far from your datacenter, you’ll be slowed down and brought closer to a humiliating death.
+
+We used both GraphQL and gRPC to illustrate the decrease in latency with the new gRPC API, and because we’re multi-tasking folk, we also took the opportunity to provide initial gRPC feedback to both the development and document teams based on our experience. 
+
+Lastly, we deployed this exciting app on Netlify React App  for your viewing pleasure, and configured it to work with a K8s stack.
+
+Ready to play? May the odds be ever in your favor.
+
+https://naming-is-hard.netlify.app/
 
 ## 1. Install dependencies
 ```shell
