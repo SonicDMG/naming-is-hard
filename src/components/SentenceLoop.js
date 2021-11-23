@@ -58,7 +58,10 @@ const SentenceLoop = () => {
   if (isError) return <p>Error :(</p>;
 
   return (
-    <>
+    <div
+      className="ui"
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <label htmlFor="region-select">Choose a region:</label>
       <select
         disabled={isRunning}
@@ -96,7 +99,7 @@ const SentenceLoop = () => {
           <div>total time: {totalTime}</div>
         </>
       )}
-    </>
+    </div>
   );
 };
 

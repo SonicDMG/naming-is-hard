@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useSelector } from "react-redux";
 import {
   Chart as ChartJS,
@@ -9,8 +9,8 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+} from "chart.js";
+import { Line } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -25,21 +25,21 @@ ChartJS.register(
 export const options = {
   responsive: true,
   interaction: {
-    mode: 'index',
+    mode: "index",
     intersect: false,
   },
   stacked: false,
   plugins: {
     title: {
       display: true,
-      text: 'Chart.js Line Chart - Multi Axis',
+      text: "Chart.js Line Chart - Multi Axis",
     },
   },
   scales: {
     y: {
-      type: 'linear',
+      type: "linear",
       display: true,
-      position: 'left',
+      position: "left",
     },
   },
 };
@@ -50,17 +50,17 @@ export const chartData = {
   labels,
   datasets: [
     {
-      label: 'Elapsed time in millis',
+      label: "Elapsed time in millis",
       //data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
       data: [202],
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      yAxisID: 'y',
+      borderColor: "rgb(255, 99, 132)",
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      yAxisID: "y",
     },
   ],
 };
 
-function Footer () {
+function Footer({ children }) {
   const data = useSelector((state) => state.data);
 
   const labels = data.map((item) => item.labels);
@@ -79,6 +79,7 @@ function Footer () {
   return (
     <div className="App-footer">
       <Line options={options} data={chartData} />
+      {children}
     </div>
   );
 }
