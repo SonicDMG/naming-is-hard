@@ -17,7 +17,7 @@ const SentenceLoop = () => {
 
   const fetchData = useCallback(async () => {
     // Reset chart data state on each fetch
-    dispatch(reset())
+    dispatch(reset());
 
     setCount(0);
     setTotalTime(0);
@@ -96,7 +96,7 @@ const SentenceLoop = () => {
               </span>
             ))}
           </div>
-          <div>total time: {totalTime}</div>
+          <div>total time: {totalTime}ms</div>
         </>
       )}
     </div>

@@ -5,8 +5,8 @@ import { createSlice } from "@reduxjs/toolkit";
 //const initialState = {"labels": [], "dataset": []};
 const initialState = [
   { 
-    labels: [],
-    dataset: [],
+    labels: '',
+    dataset: '',
   },
 ];
 
@@ -15,7 +15,7 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     addData: (state, action) => {
-      console.log("state: ", action.payload.labels);
+      //console.log("state: ", action.payload);
       state.push(action.payload);
     },
     reset: () => {
